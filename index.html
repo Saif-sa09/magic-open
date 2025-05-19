@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Magic Apuu</title>
+<style>
+  body, html {
+    margin: 0; padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: sans-serif;
+  }
+  #start-screen {
+    text-align: center;
+  }
+  #magic-btn {
+    margin-top: 1em;
+    padding: 0.5em 1.2em;
+    font-size: 1.3em;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+  }
+  .apu {
+    position: fixed;
+    user-select: none;
+    font-weight: bold;
+    animation: floatUp 5s forwards;
+    pointer-events: none;
+  }
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-200px) scale(1.5);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+  <div id="start-screen">
+    <div>Want to see a magic?</div>
+    <button id="magic-btn">YES</button>
+  </div>
+
+<script>
+  const btn = document.getElementById('magic-btn');
+  btn.addEventListener('click', () => {
+    // Remove start screen
+    document.getElementById('start-screen').remove();
+
+    const colors = ['#e74c3c', '#f1c40f', '#2ecc71', '#3498db', '#9b59b6', '#e67e22', '#1abc9c'];
+    const count = 70;
+
+    for (let i = 0; i < count; i++) {
+      const apu = document.createElement('div');
+      apu.textContent = 'Apuu';
+      apu.className = 'apu';
+
+      // Random position all over the viewport
+      apu.style.left = Math.random() * window.innerWidth + 'px';
+      apu.style.top = Math.random() * window.innerHeight + 'px';
+
+      // Random color from array
+      apu.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+      // Random font size between 14px to 28px
+      apu.style.fontSize = (14 + Math.random() * 14) + 'px';
+
+      // Random animation delay to spread out the floating start time
+      apu.style.animationDelay = (Math.random() * 2) + 's';
+
+      document.body.appendChild(apu);
+
+      // Remove after animation completes (5s + delay)
+      setTimeout(() => {
+        apu.remove();
+      }, 7000);
+    }
+  });
+</script>
+</body>
+</html>
